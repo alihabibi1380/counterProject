@@ -23,6 +23,8 @@ startCounter.addEventListener("click", function() {
     timerNum.textContent = seconds;
     successText.style.display= "none";
 
+    let originalSeconds = seconds;
+    let lastPercent = 'p100';
     let timerId = setInterval(() => {
         if (seconds <= 0){
             clearInterval(timerId)
@@ -31,8 +33,15 @@ startCounter.addEventListener("click", function() {
             loadingText.style.display= "none";
             successText.style.display= "block";
             inputCounter.value= '';
+            timer.classList.remove(lastPercent)
+            return;
         }
+        if (lastPercent) timer.classList.remove(lastPercent);
         seconds -= 1;
+        let percent = Math.abs(Math.floor((((originalSeconds - seconds) / originalSeconds) * 100) - 100))
+        lastPercent = `p${percent}`;
+        timer.classList.add(lastPercent)
+        console.log(percent)
         timerNum.textContent = seconds;
     }, 1000);
 
