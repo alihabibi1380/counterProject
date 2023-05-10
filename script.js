@@ -1,9 +1,7 @@
-let startBox = document.querySelector(".start-box")
-let inputCounter = startBox.querySelector("#input-counter");
-let startCounter = startBox.querySelector("#start-counter");
+let inputCounter = document.querySelector("#input-counter");
+let startCounter = document.querySelector("#start-counter");
 let timer = document.querySelector(".c100");
 let loadingText = document.querySelector(".loading");
-let successText = document.querySelector(".success");
 let timerNum = timer.querySelector("#timer-num");
 
 startCounter.addEventListener("click", function() {
@@ -50,6 +48,8 @@ let toggleErorMessage = ({show , message}) => {
 };
 
 let toggleStartBox = ({show}) => {
+    let startBox = document.querySelector(".start-box")
+    let successText = document.querySelector(".success");
     if(show){
         startBox.style.display= "block";
         successText.style.display= "block";
