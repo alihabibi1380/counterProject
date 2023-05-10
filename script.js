@@ -1,7 +1,6 @@
 let startBox = document.querySelector(".start-box")
 let inputCounter = startBox.querySelector("#input-counter");
 let startCounter = startBox.querySelector("#start-counter");
-let erorMessage = document.querySelector("#eror");
 let timer = document.querySelector(".c100");
 let loadingText = document.querySelector(".loading");
 let successText = document.querySelector(".success");
@@ -11,12 +10,11 @@ startCounter.addEventListener("click", function() {
     let seconds = parseInt(inputCounter.value);
 
     if (isNaN(seconds)){
-        erorMessage.textContent= "زمان را به درستی وارد کنید"
-        erorMessage.classList.add("active");
+        toggleErorMessage({show : true , message : "زمان را به درستی وارد کنید"});
         return;
     }
 
-    erorMessage.classList.remove("active");
+    toggleErorMessage({show : false});
     startBox.style.display= "none";
     timer.style.display= "block";
     loadingText.style.display= "block";
@@ -41,8 +39,17 @@ startCounter.addEventListener("click", function() {
         let percent = Math.abs(Math.floor((((originalSeconds - seconds) / originalSeconds) * 100) - 100))
         lastPercent = `p${percent}`;
         timer.classList.add(lastPercent)
-        console.log(percent)
         timerNum.textContent = seconds;
     }, 1000);
 
 });
+
+let toggleErorMessage = ({show , message}) => {
+    let erorMessage = document.querySelector("#eror");
+    if(show){
+        erorMessage.textContent= message;
+        erorMessage.classList.add("active");
+    }else{
+        erorMessage.classList.remove("active");
+    }
+};
