@@ -9,27 +9,22 @@ let timerNum = timer.querySelector("#timer-num");
 startCounter.addEventListener("click", function() {
     let seconds = parseInt(inputCounter.value);
 
-    if (isNaN(seconds)){
-        toggleErorMessage({show : true , message : "زمان را به درستی وارد کنید"});
-        return;
-    }
+    if (isNaN(seconds)) return toggleErorMessage({show : true , message : "زمان را به درستی وارد کنید"})
 
     toggleErorMessage({show : false});
-    startBox.style.display= "none";
+    toggleStartBox({show : false});
     timer.style.display= "block";
     loadingText.style.display= "block";
     timerNum.textContent = seconds;
-    successText.style.display= "none";
 
     let originalSeconds = seconds;
     let lastPercent = 'p100';
     let timerId = setInterval(() => {
         if (seconds <= 0){
             clearInterval(timerId)
-            startBox.style.display= "block";
+            toggleStartBox({show : true})
             timer.style.display= "none";
             loadingText.style.display= "none";
-            successText.style.display= "block";
             inputCounter.value= '';
             timer.classList.remove(lastPercent)
             return;
@@ -53,3 +48,13 @@ let toggleErorMessage = ({show , message}) => {
         erorMessage.classList.remove("active");
     }
 };
+
+let toggleStartBox = ({show}) => {
+    if(show){
+        startBox.style.display= "block";
+        successText.style.display= "block";
+    }else{
+        startBox.style.display= "none";
+        successText.style.display= "none";
+    }
+}
